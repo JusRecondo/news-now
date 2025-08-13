@@ -8,14 +8,9 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "NEWS_API_KEY environment variable is not set" }, { status: 500 })
   }
 
-  const { searchParams } = new URL(request.url)
-  const pageSize = searchParams.get("pageSize") || "1"
-  const page = searchParams.get("page") || "1"
-  const country = searchParams.get("country") || "us"
-
   try {
     const response = await fetch(
-      `${NEWS_API_URL}/top-headlines?country=${country}&pageSize=${pageSize}&page=${page}&apiKey=${NEWS_API_KEY}`,
+      `${NEWS_API_URL}/top-headlines?country=us&apiKey=${NEWS_API_KEY}&pageSize=2&page=1`,
       {
         headers: {
           "User-Agent": "NewsHub/1.0",

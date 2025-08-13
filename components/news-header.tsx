@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button"
 import { useFilters } from "@/contexts/filters-context"
 import { Search, Menu } from "lucide-react"
+import { parseCategoryName } from "@/lib/utils"
 import ThemeToggle from "./theme-toggle"
 
 export function NewsHeader() {
@@ -25,7 +26,7 @@ export function NewsHeader() {
                 className={`text-sm font-medium transition-colors hover:text-red-600 ${selectedCategory === cat ? "text-red-600 underline" : ""}`}
                 onClick={e => { e.preventDefault(); handleCategoryClick(cat); }}
               >
-                {cat === "world or politics or technology or business or sports" ? "All News" : cat.charAt(0).toUpperCase() + cat.slice(1)}
+                {parseCategoryName(cat)}
               </a>
             ))}
           </nav>

@@ -1,15 +1,16 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Clock, ExternalLink } from "lucide-react"
-import type { NewsArticle } from "@/types/news"
 import { useNews } from "@/contexts/news-context"
+import { useFilters } from "@/contexts/filters-context"
+import { parseCategoryName } from "@/lib/utils"
 
 export function NewsGrid() {
   const { articles, articlesLoading, hasMore, loadMoreArticles } = useNews()
+  const { selectedCategory } = useFilters()
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
@@ -39,7 +40,12 @@ export function NewsGrid() {
 
   return (
     <section className="container mx-auto px-4 py-8">
-
+      <h2 className="text-2xl font-bold mb-6">
+        Latest News 
+        <span className="ml-2 text-sm font-medium text-red-600">
+          {parseCategoryName(selectedCategory)}
+        </span>
+      </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {articles.map((article, index) => (
           <Card key={`${article.url}-${index}`} className="overflow-hidden hover:shadow-lg transition-shadow">

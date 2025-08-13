@@ -40,7 +40,7 @@ export function NewsProvider({ children }: { children: ReactNode }) {
   const fetchTopStory = async () => {
     try {
       setTopStoryLoading(true)
-      const response = await fetch("/api/news/top-headlines?country=us&pageSize=1&page=1")
+      const response = await fetch(`/api/news/top-headlines`)
       const data = await response.json()
 
       if (data.articles && data.articles.length > 0) {
@@ -83,6 +83,9 @@ export function NewsProvider({ children }: { children: ReactNode }) {
   // Initial data fetch
   useEffect(() => {
     fetchTopStory()
+  }, [])
+
+  useEffect(() => {
     fetchArticles()
   }, [selectedCategory])
 
