@@ -80,7 +80,7 @@ export function NewsGrid() {
             {article.urlToImage && (
               <div className="aspect-video overflow-hidden">
                 <img
-                  src={article.urlToImage || "/placeholder.svg"}
+                  src={article.urlToImage || "/placeholder.png"}
                   alt={article.title}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />

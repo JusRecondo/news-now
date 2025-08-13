@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const page = searchParams.get("page") || "1"
   const pageSize = searchParams.get("pageSize") || "20"
-  const query = searchParams.get("q") || "technology OR business OR science"
+  const query = searchParams.get("q") || "technology OR business OR science OR health OR sports OR politics OR world"
   const sortBy = searchParams.get("sortBy") || "publishedAt"
 
   try {
