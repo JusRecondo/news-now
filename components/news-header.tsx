@@ -1,9 +1,10 @@
 "use client"
 import { Button } from "@/components/ui/button"
 import { useFilters } from "@/contexts/filters-context"
-import { Search, Menu } from "lucide-react"
+import { Menu } from "lucide-react"
 import { parseCategoryName } from "@/lib/utils"
 import ThemeToggle from "./theme-toggle"
+import NewsSearchbar from "./news-searchbar"
 
 export function NewsHeader() {
   
@@ -37,10 +38,7 @@ export function NewsHeader() {
           </nav>
         </div>
         <div className="flex items-center gap-4">
-          <Button variant="ghost" size="sm" className="hidden sm:flex">
-            <Search className="h-4 w-4" />
-            Search
-          </Button>
+          <NewsSearchbar />
           <Button variant="ghost" size="sm" className="md:hidden">
             <Menu className="h-4 w-4" />
           </Button>
