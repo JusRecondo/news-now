@@ -1,9 +1,10 @@
 import type React from "react"
 import { NewsProvider } from "@/contexts/news-context"
+import { FiltersProvider } from "@/contexts/filters-context"
+import { ThemeProvider } from 'next-themes'
 import type { Metadata } from "next"
 import { Geist } from 'next/font/google'
 import "./globals.css"
-import { FiltersProvider } from "@/contexts/filters-context"
 
 export const metadata: Metadata = {
   title: "NewsNow - Stay Informed with Latest News",
@@ -18,11 +19,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={geist.className}>
       <body>
-        <FiltersProvider>
-          <NewsProvider>
-            {children}
-          </NewsProvider>
-        </FiltersProvider>
+        <ThemeProvider attribute="class" defaultTheme="system">
+          <FiltersProvider>
+            <NewsProvider>
+              {children}
+            </NewsProvider>
+          </FiltersProvider>
+        </ThemeProvider>
       </body>
     </html>
   )
