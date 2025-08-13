@@ -4,29 +4,10 @@ import { useEffect, useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Clock, ExternalLink } from "lucide-react"
-import type { NewsArticle } from "@/types/news"
+import { useNews } from "@/contexts/news-context"
 
 export function NewsHero() {
-  const [topStory, setTopStory] = useState<NewsArticle | null>(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    fetchTopStory()
-  }, [])
-
-  const fetchTopStory = async () => {
-    try {
-      const response = await fetch("/api/news/top-headlines?pageSize=10")
-      const data = await response.json()
-      if (data.articles && data.articles.length > 0) {
-        setTopStory(data.articles[0])
-      }
-    } catch (error) {
-      console.error("Error fetching top story:", error)
-    } finally {
-      setLoading(false)
-    }
-  }
+  const { topStory, topStoryLoading } = useNews()
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
@@ -38,7 +19,7 @@ export function NewsHero() {
     })
   }
 
-  if (loading) {
+  if (topStoryLoading && !topStory) {
     return (
       <section className="container mx-auto px-4 py-8">
         <div className="animate-pulse">

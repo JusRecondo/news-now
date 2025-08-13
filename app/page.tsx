@@ -7,7 +7,6 @@ export default function HomePage() {
     <div className="min-h-screen bg-background">
       <NewsHeader />
       <main>
-        <NewsHero />
         <NewsGrid />
       </main>
     </div>

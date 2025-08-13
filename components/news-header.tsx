@@ -1,15 +1,14 @@
 "use client"
 import { Button } from "@/components/ui/button"
+import { useFilters } from "@/contexts/filters-context"
 import { Search, Menu } from "lucide-react"
-import { useState } from "react"
 
-export function NewsHeader({ onCategoryChange }: { onCategoryChange?: (category: string) => void }) {
-  const categories = ["World", "Politics", "Technology", "Business", "Sports"];
-  const [selected, setSelected] = useState<string>(categories[0]);
+export function NewsHeader() {
+  
+ const { categories, selectedCategory, setSelectedCategory } = useFilters()
 
   const handleCategoryClick = (category: string) => {
-    setSelected(category);
-    if (onCategoryChange) onCategoryChange(category);
+    setSelectedCategory(category)
   };
 
   return (
@@ -22,10 +21,10 @@ export function NewsHeader({ onCategoryChange }: { onCategoryChange?: (category:
               <a
                 key={cat}
                 href="#"
-                className={`text-sm font-medium transition-colors hover:text-red-600 ${selected === cat ? "text-red-600 underline" : ""}`}
+                className={`text-sm font-medium transition-colors hover:text-red-600 ${selectedCategory === cat ? "text-red-600 underline" : ""}`}
                 onClick={e => { e.preventDefault(); handleCategoryClick(cat); }}
               >
-                {cat}
+                {cat === "world or politics or technology or business or sports" ? "All News" : cat.charAt(0).toUpperCase() + cat.slice(1)}
               </a>
             ))}
           </nav>

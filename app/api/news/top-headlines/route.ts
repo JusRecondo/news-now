@@ -9,12 +9,13 @@ export async function GET(request: NextRequest) {
   }
 
   const { searchParams } = new URL(request.url)
-  const pageSize = searchParams.get("pageSize") || "10"
+  const pageSize = searchParams.get("pageSize") || "1"
+  const page = searchParams.get("page") || "1"
   const country = searchParams.get("country") || "us"
 
   try {
     const response = await fetch(
-      `${NEWS_API_URL}/top-headlines?country=${country}&pageSize=${pageSize}&page=1&apiKey=${NEWS_API_KEY}`,
+      `${NEWS_API_URL}/top-headlines?country=${country}&pageSize=${pageSize}&page=${page}&apiKey=${NEWS_API_KEY}`,
       {
         headers: {
           "User-Agent": "NewsHub/1.0",
