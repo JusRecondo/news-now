@@ -11,6 +11,11 @@ export function NewsHeader() {
 
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category)
+    // Scroll to the news grid section
+    const newsGrid = document.getElementById("news-grid")     
+    if (newsGrid) {
+      newsGrid.scrollIntoView({ behavior: "smooth" })
+    }
   };
 
   return (

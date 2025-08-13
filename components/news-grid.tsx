@@ -39,7 +39,7 @@ export function NewsGrid() {
   }
 
   return (
-    <section className="container mx-auto px-4 py-8">
+    <section className="container mx-auto px-4 py-8" id="news-grid">
       <h2 className="text-2xl font-bold mb-6">
         Latest News 
         <span className="ml-2 text-sm font-medium text-red-600">
@@ -48,7 +48,7 @@ export function NewsGrid() {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {articles.map((article, index) => (
-          <Card key={`${article.url}-${index}`} className="overflow-hidden hover:shadow-lg transition-shadow">
+          <Card key={`${article.url}-${index}`} className="overflow-hidden hover:shadow-lg transition-shadow py-0">
             {article.urlToImage && (
               <div className="aspect-video overflow-hidden">
                 <img

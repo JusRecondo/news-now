@@ -52,14 +52,14 @@ export function NewsHero() {
         <h2 className="text-3xl font-bold mb-2">Top Story</h2>
       </div>
 
-      <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+      <Card className="overflow-hidden hover:shadow-lg transition-shadow py-0">
         <div className="md:flex">
           {topStory.urlToImage && (
             <div className="md:w-1/2">
               <img
                 src={topStory.urlToImage || "/placeholder.svg"}
                 alt={topStory.title}
-                className="w-full h-64 md:h-full object-cover"
+                className="w-full h-40 md:h-full object-cover"
               />
             </div>
           )}
