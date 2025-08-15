@@ -5,6 +5,8 @@ import { ThemeProvider } from 'next-themes'
 import type { Metadata } from "next"
 import { Geist } from 'next/font/google'
 import "./globals.css"
+import { NewsHeader } from "@/components/news-header"
+import { SearchProvider } from "@/contexts/search-context"
 
 export const metadata: Metadata = {
   title: "NewsNow - Stay Informed with Latest News",
@@ -20,11 +22,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <html lang="en" className={geist.className}>
       <body>
         <ThemeProvider attribute="class" defaultTheme="system">
-          <FiltersProvider>
-            <NewsProvider>
-              {children}
-            </NewsProvider>
-          </FiltersProvider>
+          <SearchProvider>
+            <FiltersProvider>
+              <NewsProvider>
+                <NewsHeader />
+                {children}
+              </NewsProvider>
+            </FiltersProvider>
+          </SearchProvider>
         </ThemeProvider>
       </body>
     </html>

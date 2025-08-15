@@ -65,7 +65,7 @@ export function NewsProvider({ children }: { children: ReactNode }) {
         } else {
           setArticles((prev) => [...prev, ...data.articles])
         }
-        setHasMore(data.articles.length === 12)
+        setHasMore(data.totalResults > articles.length + data.articles.length)
       }
     } catch (error) {
       console.error("Error fetching articles:", error)

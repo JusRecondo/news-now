@@ -1,4 +1,4 @@
-export const searchMovies = async ({ query, pageNum }: { query: string, pageNum: string}) => {
+export const searchNews = async ({ query, pageNum }: { query: string, pageNum: number}) => {
   if(query === '') return null;
   
   try {
@@ -7,9 +7,7 @@ export const searchMovies = async ({ query, pageNum }: { query: string, pageNum:
       throw new Error(`Request failed with status ${response.status}`);
     }
     const json = await response.json();
-    console.log('Search results:', json)
-
-    return json.articles || []
+    return json
     
   } catch (e) {
     throw new Error('Error buscando peliculas');

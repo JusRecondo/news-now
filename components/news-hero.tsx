@@ -5,9 +5,12 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Clock, ExternalLink } from "lucide-react"
 import { useNews } from "@/contexts/news-context"
+import { useSearchContext } from "@/contexts/search-context"
+import { ResultsGrid } from "./results-grid"
 
 export function NewsHero() {
   const { topStory, topStoryLoading } = useNews()
+  const { search } = useSearchContext()
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
@@ -17,6 +20,10 @@ export function NewsHero() {
       hour: "2-digit",
       minute: "2-digit",
     })
+  }
+
+  if (search) {
+    return <ResultsGrid searchTerm={search} />
   }
 
   if (topStoryLoading && !topStory) {
