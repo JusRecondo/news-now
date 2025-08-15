@@ -25,7 +25,7 @@ export function ResultsGrid({ searchTerm }: Props) {
   if (!loading && results.length === 0 && !searchError) {
     return (
       <section className="container mx-auto px-4 py-8">         
-        <h2 className="text-2xl font-bold mb-6">No results found for "{searchTerm}"</h2>
+        <h2 className="text-2xl font-bold mb-6">No results found for &ldquo;{searchTerm}&rdquo;</h2>
         <p className="text-muted-foreground">Try a different search term.</p>
       </section>
     )
@@ -34,7 +34,7 @@ export function ResultsGrid({ searchTerm }: Props) {
   if (loading && results.length === 0) {
     return (
       <section className="container mx-auto px-4 py-8">
-        <h2 className="text-2xl font-bold mb-6">Searching "{searchTerm}"</h2>
+        <h2 className="text-2xl font-bold mb-6">Searching &ldquo;{searchTerm}&rdquo;</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="animate-pulse">
@@ -60,7 +60,7 @@ export function ResultsGrid({ searchTerm }: Props) {
   return (
     <section className="container mx-auto px-4 py-8" id="results-grid">
       <h2 className="text-2xl font-bold mb-6">
-        Search Results for "{searchTerm}" 
+        Search Results for &ldquo;{searchTerm}&rdquo;
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {results.map((article, index) => (

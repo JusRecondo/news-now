@@ -1,9 +1,9 @@
-import { type NextRequest, NextResponse } from "next/server"
+import { NextResponse } from "next/server"
 
 const NEWS_API_KEY = process.env.NEWS_API_KEY
 const NEWS_API_URL = "https://newsapi.org/v2"
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   if (!NEWS_API_KEY) {
     return NextResponse.json({ error: "NEWS_API_KEY environment variable is not set" }, { status: 500 })
   }
