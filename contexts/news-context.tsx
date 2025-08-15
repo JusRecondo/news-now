@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
 import type { NewsArticle } from "@/types/news"
 import { useFilters } from "./filters-context"
-import { fetchNews } from "@/services/news"
+import { fetchHeadlineNew, fetchNews } from "@/services/news"
 
 interface NewsContextType {
   // Top story state
@@ -41,8 +41,7 @@ export function NewsProvider({ children }: { children: ReactNode }) {
   const fetchTopStory = async () => {
     try {
       setTopStoryLoading(true)
-      const response = await fetch(`/api/news/top-headlines`)
-      const data = await response.json()
+      const data = await fetchHeadlineNew()
 
       if (data.articles && data.articles.length > 0) {
         setTopStory(data.articles[0])

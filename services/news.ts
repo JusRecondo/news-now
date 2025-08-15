@@ -16,6 +16,23 @@ export const fetchNews = async ({ pageNum, selectedCategory }: { pageNum: number
   }
 }
 
+export const fetchHeadlineNew = async () => {
+  try { 
+    const response = await fetch(`/api/news/top-headlines`)
+    if (!response.ok) {
+      return null
+    }
+    const json = await response.json();
+    return json || null 
+  } catch (e) {
+    if (e instanceof Error) {
+      throw new Error('Error fetching top story: ' + e.message);
+    } else {
+      throw new Error('Error fetching top story: ' + String(e));
+    }
+  }
+}
+
 export const searchNews = async ({ query, pageNum }: { query: string, pageNum: number}) => {
   if(query === '') return null;
   
