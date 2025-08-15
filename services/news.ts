@@ -1,15 +1,37 @@
+
+export const fetchNews = async ({ pageNum, selectedCategory }: { pageNum: number, selectedCategory: string }) => {
+  try {       
+    const response = await fetch(`/api/news/everything?page=${pageNum}&pageSize=12&q=${encodeURIComponent(selectedCategory)}&sortBy=publishedAt`)
+    if (!response.ok) {
+      return null
+    }
+    const json = await response.json();
+    return json || null 
+  } catch (e) {
+    if (e instanceof Error) {
+      throw new Error('Error fetching news: ' + e.message);
+    } else {
+      throw new Error('Error fetching news: ' + String(e));
+    }
+  }
+}
+
 export const searchNews = async ({ query, pageNum }: { query: string, pageNum: number}) => {
   if(query === '') return null;
   
   try {
     const response = await fetch(`/api/news/everything?page=${pageNum}&pageSize=12&q=${encodeURIComponent(query)}&sortBy=publishedAt`)
     if (!response.ok) {
-      throw new Error(`Request failed with status ${response.status}`);
+      return null
     }
     const json = await response.json();
-    return json
+    return json || null
     
   } catch (e) {
-    throw new Error('Error buscando peliculas');
+    if (e instanceof Error) {
+      throw new Error('Error searching news: ' + e.message);
+    } else {
+      throw new Error('Error searching news: ' + String(e));
+    }
   }
 }

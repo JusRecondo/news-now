@@ -8,10 +8,7 @@ import { useSearchContext } from "@/contexts/search-context"
 
 const NewsSearchbar = () => {
 
-    const { search, loading, searchError, handleChange } = useSearchContext()
-    console.log('search:', search)
-    console.log('loading:', loading)
-    console.log('searchError:', searchError)
+    const { search, handleChange } = useSearchContext()
 
     return (
         <Popover.Root>

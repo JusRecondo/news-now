@@ -48,6 +48,7 @@ export function NewsHeader() {
             </div>
             <div className="flex items-center justify-end gap-8">
               <NewsSearchbar />
+              <ThemeToggle />
             </div>
           </div>
         )}

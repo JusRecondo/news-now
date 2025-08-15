@@ -2,7 +2,7 @@
 import { useSearch } from '@/hooks/useSearch';
 import { debounce } from '@/lib/utils';
 import { searchNews } from '@/services/news';
-import React, { createContext, useContext, useState, ReactNode, useRef, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 
 type SearchContextType = {
     results: any[]
@@ -25,28 +25,41 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
     const [hasMoreResults, setHasMoreResults] = useState(true)
     const [page, setPage] = useState(1)
     const [loading, setLoading] = useState(false)
-    const [error, sethError] = useState<null | string>(null)
+    const [error, setError] = useState<null | string>(null)
 
     const debouncedGetNews = useCallback(debounce(async search => {
         const data = await searchNews({ query: search, pageNum: page })
-        setResults(data.articles || [])
-        setHasMoreResults(data.totalResults > results.length + data.articles.length)
+        setResults(data?.articles || [])
+        setHasMoreResults(data?.totalResults > results.length + data?.articles.length)
         setLoading(false)
     }, 300), [])
 
     const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const newSearch = e.target.value
         updateSearch(newSearch)
-        debouncedGetNews(newSearch)
+        setResults([])
+        setPage(1)
+        setHasMoreResults(false)
         setLoading(true)
-        sethError(null)
+        debouncedGetNews(newSearch)
+        setError(null)
+        if (newSearch.trim() === '') {
+            setResults([])
+            setHasMoreResults(false)
+            setLoading(false)
+            return
+        }
     }
 
     const loadMoreResults = async () => {
         const nextPage = page + 1
         setPage(nextPage)
         const data = await searchNews({ query: search, pageNum: page })
-        setResults((prev) => [...prev, ...data.articles])
+        if (!data || !data.articles) {
+            setError('No more results found')
+            return
+        }
+        setResults((prev) => [...prev, ...data?.articles])
     }
 
     return (

@@ -4,7 +4,6 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Clock, ExternalLink } from "lucide-react"
-import { useFilters } from "@/contexts/filters-context"
 import { useSearchContext } from "@/contexts/search-context"
 
 interface Props {
@@ -13,8 +12,6 @@ interface Props {
 
 export function ResultsGrid({ searchTerm }: Props) {
   const { results, loading, searchError, hasMoreResults, loadMoreResults } = useSearchContext()
-  const { selectedCategory } = useFilters()
-  console.log('ResultsGrid - results:', results)
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
@@ -25,10 +22,19 @@ export function ResultsGrid({ searchTerm }: Props) {
     })
   }
 
+  if (!loading && results.length === 0 && !searchError) {
+    return (
+      <section className="container mx-auto px-4 py-8">         
+        <h2 className="text-2xl font-bold mb-6">No results found for "{searchTerm}"</h2>
+        <p className="text-muted-foreground">Try a different search term.</p>
+      </section>
+    )
+  }
+
   if (loading && results.length === 0) {
     return (
       <section className="container mx-auto px-4 py-8">
-        <h2 className="text-2xl font-bold mb-6">Latest News</h2>
+        <h2 className="text-2xl font-bold mb-6">Searching "{searchTerm}"</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="animate-pulse">
@@ -38,6 +44,15 @@ export function ResultsGrid({ searchTerm }: Props) {
             </div>
           ))}
         </div>
+      </section>
+    )
+  }
+
+  if (searchError) {
+    return (
+      <section className="container mx-auto px-4 py-8">         
+        <h2 className="text-2xl font-bold mb-6">Search error</h2>
+        <p className="text-red-500">{searchError}</p>
       </section>
     )
   }
