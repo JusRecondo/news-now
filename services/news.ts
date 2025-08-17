@@ -1,7 +1,9 @@
 
+const API_URL = process.env.LOCAL_API_URL
+
 export const fetchNews = async ({ pageNum, selectedCategory }: { pageNum: number, selectedCategory: string }) => {
   try {       
-    const response = await fetch(`/api/news/everything?page=${pageNum}&pageSize=12&q=${encodeURIComponent(selectedCategory)}&sortBy=publishedAt`)
+    const response = await fetch(`${API_URL}/api/news/everything?page=${pageNum}&pageSize=12&q=${encodeURIComponent(selectedCategory)}&sortBy=publishedAt`)
     if (!response.ok) {
       return null
     }
@@ -37,7 +39,7 @@ export const searchNews = async ({ query, pageNum }: { query: string, pageNum: n
   if(query === '') return null;
   
   try {
-    const response = await fetch(`/api/news/everything?page=${pageNum}&pageSize=12&q=${encodeURIComponent(query)}&sortBy=publishedAt`)
+    const response = await fetch(`${API_URL}/api/news/everything?page=${pageNum}&pageSize=12&q=${encodeURIComponent(query)}&sortBy=publishedAt`)
     if (!response.ok) {
       return null
     }
