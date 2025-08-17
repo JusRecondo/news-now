@@ -20,7 +20,7 @@ export const fetchNews = async ({ pageNum, selectedCategory }: { pageNum: number
 
 export const fetchHeadlineNew = async () => {
   try { 
-    const response = await fetch(`/api/news/top-headlines`)
+    const response = await fetch(`${API_URL}/api/news/top-headlines`)
     if (!response.ok) {
       return null
     }
