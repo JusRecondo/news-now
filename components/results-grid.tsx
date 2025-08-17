@@ -11,7 +11,7 @@ interface Props {
 }
 
 export function ResultsGrid({ searchTerm }: Props) {
-  const { results, loading, searchError, hasMoreResults, loadMoreResults } = useSearchContext()
+  const { results, loading, searchError, hasMoreResults, loadMoreResults, updateSearch } = useSearchContext()
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
@@ -27,6 +27,13 @@ export function ResultsGrid({ searchTerm }: Props) {
       <section className="container mx-auto px-4 py-8">         
         <h2 className="text-2xl font-bold mb-6">No results found for &ldquo;{searchTerm}&rdquo;</h2>
         <p className="text-muted-foreground">Try a different search term.</p>
+        <Button
+          onClick={() => updateSearch('')}
+          variant="outline"
+          className="mt-2 mb-2"
+        >
+          Clear Search
+        </Button>
       </section>
     )
   }
@@ -53,15 +60,31 @@ export function ResultsGrid({ searchTerm }: Props) {
       <section className="container mx-auto px-4 py-8">         
         <h2 className="text-2xl font-bold mb-6">Search error</h2>
         <p className="text-red-500">{searchError}</p>
+        <Button
+          onClick={() => updateSearch('')}
+          variant="outline"
+          className="mt-2 mb-2"
+        >
+          Clear Search
+        </Button>
       </section>
     )
   }
 
   return (
     <section className="container mx-auto px-4 py-8" id="results-grid">
-      <h2 className="text-2xl font-bold mb-6">
-        Search Results for &ldquo;{searchTerm}&rdquo;
-      </h2>
+      <div className="flex">
+        <h2 className="text-2xl font-bold mb-6">
+          Search Results for &ldquo;{searchTerm}&rdquo;
+        </h2>
+        <Button
+            onClick={() => updateSearch('')}
+            variant="outline"
+            className="ml-2"
+          >
+            Clear Search
+        </Button>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {results.map((article, index) => (
           <Card key={`${article.url}-${index}`} className="overflow-hidden hover:shadow-lg transition-shadow py-0">

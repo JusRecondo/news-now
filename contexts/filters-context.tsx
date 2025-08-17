@@ -1,5 +1,5 @@
 "use client"
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
+import { createContext, useContext, useState, type ReactNode } from "react"
 
 interface FiltersContextType {
     categories: string[]
@@ -14,7 +14,7 @@ export function FiltersProvider({ children }: { children: ReactNode }) {
     const [selectedCategory, setSelectedCategory] = useState("world or politics or technology or business or sports") // Default
 
     const handleSelectCategory = (category: string) => {
-        setSelectedCategory(category);
+        setSelectedCategory(category)
     }
 
     const value = {
