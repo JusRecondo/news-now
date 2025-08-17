@@ -1,5 +1,5 @@
 
-const API_URL = process.env.LOCAL_API_URL
+const API_URL = process.env.LOCAL_API_URL || 'https://news-now-git-main-jusrecondos-projects.vercel.app/'
 
 export const fetchNews = async ({ pageNum, selectedCategory }: { pageNum: number, selectedCategory: string }) => {
   try {       
